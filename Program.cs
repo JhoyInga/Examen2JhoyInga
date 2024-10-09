@@ -32,32 +32,40 @@ ConsultorExterno consultorExterno = new ConsultorExterno
 };
 
 
-
+/*
 empleados.Add(gerente);
 empleados.Add(desarollador);
 empleados.Add(gerenteRRHH);
 empleados.Add(consultorExterno);
+*/
 
-
-foreach (var empleado in empleados)
+void ListarEmpleado()
 {
-    empleado.CalcularSueldo();
-    empleado.MostrarDetalle();
-    
-    decimal sueldo = empleado.CalcularSueldo();
+    decimal sumaSueldos = 0;
 
-    if (empleado is ISueldoBonificable empleadoBonificable)
+    foreach (var empleado in empleados)
     {
-        empleadoBonificable.CalcularBonificacion();
-    }
-    if (empleado is IDescuentoImpuesto empleadoDescuento)
-    {
-        empleadoDescuento.DescontarSueldo();
+
+        empleado.CalcularSueldo();
+        empleado.MostrarDetalle();
+
+        if (empleado is ISueldoBonificable empleadoBonificable)
+        {
+            empleadoBonificable.CalcularBonificacion();
+        }
+        if (empleado is IDescuentoImpuesto empleadoDescuento)
+        {
+            empleadoDescuento.DescontarSueldo();
+        }
+
+        sumaSueldos = sumaSueldos + empleado.CalcularSueldo();
     }
 
+    Console.WriteLine("Total de Empleados = " + empleados.Count);
+    Console.WriteLine("Suma total de Sueldos al mes = "+sumaSueldos.ToString());
 }
 
-/*
+
 void MostrarMenu()
 {
     int opcion;
@@ -80,12 +88,62 @@ void MostrarMenu()
                 Console.WriteLine("B) Gerente de RRHH");
                 Console.WriteLine("C) Desarrollador");
                 Console.WriteLine("D) Consultor Externo");
-                opcion2 = Console.ReadLine();
-      
+                opcion2 = Console.ReadLine().ToUpper();
+
+                switch (opcion2)
+                {
+                    case "A":
+                        Console.WriteLine("Datos de gerente:");
+                        Gerente gerente = new Gerente();
+                        Console.WriteLine("Ingrese ID:");
+                        gerente.IdEmpleado = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Ingrese Nombre:");
+                        gerente.Nombre = Console.ReadLine();
+                        Console.WriteLine("Ingrese Puesto:");
+                        gerente.Puesto = Console.ReadLine();
+                        empleados.Add(gerente);
+                        break;
+                    case "B":
+                        Console.WriteLine("Datos de gerente RRHH:");
+                        GerenteRRHH gerenteRRHH1 = new GerenteRRHH();
+                        Console.WriteLine("Ingrese ID:");
+                        gerenteRRHH1.IdEmpleado = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Ingrese Nombre:");
+                        gerenteRRHH1.Nombre = Console.ReadLine();
+                        Console.WriteLine("Ingrese Puesto:");
+                        gerenteRRHH1.Puesto = Console.ReadLine();
+                        empleados.Add(gerenteRRHH1);
+                        break;
+                    case "C":
+                        Console.WriteLine("Datos de Desarrollador:");
+                        Desarollador desarollador = new Desarollador();
+                        Console.WriteLine("Ingrese ID:");
+                        desarollador.IdEmpleado = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Ingrese Nombre:");
+                        desarollador.Nombre = Console.ReadLine();
+                        Console.WriteLine("Ingrese Puesto:");
+                        desarollador.Puesto = Console.ReadLine();
+                        empleados.Add(desarollador);
+                        break;
+                    case "D":
+                        Console.WriteLine("Datos de Consultor Externo:");
+                        ConsultorExterno consultorExterno = new ConsultorExterno();
+                        Console.WriteLine("Ingrese ID:");
+                        consultorExterno.IdEmpleado = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Ingrese Nombre:");
+                        consultorExterno.Nombre = Console.ReadLine();
+                        Console.WriteLine("Ingrese Puesto:");
+                        consultorExterno.Puesto = Console.ReadLine();
+                        empleados.Add(consultorExterno);
+                        break;
+                    default:
+                        break;
+                }
+
                 break;
 
             case 2:
-                Console.WriteLine("Ingrese un numero de dia de la semana:");
+                ListarEmpleado();
                 break;
 
             default:
@@ -101,5 +159,5 @@ void MostrarMenu()
 
 MostrarMenu();
 
-*/
+
 Console.Read();
