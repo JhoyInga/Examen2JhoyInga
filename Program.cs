@@ -3,6 +3,7 @@ using Examen2JhoyInga.Interfaces;
 
 List<EmpleadoBase> empleados = new List<EmpleadoBase>();
 
+/*
 Gerente gerente = new Gerente
 {
     IdEmpleado = 1,
@@ -31,8 +32,6 @@ ConsultorExterno consultorExterno = new ConsultorExterno
     Puesto = "Consultor Externo",
 };
 
-
-/*
 empleados.Add(gerente);
 empleados.Add(desarollador);
 empleados.Add(gerenteRRHH);
